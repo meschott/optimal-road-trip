@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Randy Olson uses machine learning to find the optimal road trip across the U.S.">
+    <meta name="author" content="Randal S. Olson">
+
+    <title>The optimal road trip across the U.S. according to machine learning</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      #panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 10px;
+        border: 1px solid #999;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script>
+      var directionsDisplay1, directionsDisplay2;
+      var directionsDisplay3, directionsDisplay4;
+      var directionsDisplay5, directionsDisplay6;
+      var markerOptions = {icon: "http://maps.gstatic.com/mapfiles/markers2/marker.png"};
+      var directionsDisplayOptions = {preserveViewport: true,
+      markerOptions: markerOptions};
+      var directionsService = new google.maps.DirectionsService();
+      var map;
+      function initialize() {
+        var center = new google.maps.LatLng(39, -96);
+        var mapOptions = {
+      zoom: 5,
+      center: center
+        };
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        directionsDisplay1.setMap(map);
+        directionsDisplay2.setMap(map);
+        directionsDisplay3.setMap(map);
+        directionsDisplay4.setMap(map);
+        directionsDisplay5.setMap(map);
+        directionsDisplay6.setMap(map);
+      }
+      function calcRoute(start, end, routes) {
+        switch (start) {
+      case "4919 Cave Run Drive, Houston, TX":
+      directionsDisplay1 = new google.maps.DirectionsRenderer(directionsDisplayOptions);
+      break;
+      case "The Queen Mary, Queens Highway, Long Beach, CA":
+      directionsDisplay2 = new google.maps.DirectionsRenderer(directionsDisplayOptions);
+      break;
+      case "Red Rock Canyon National Conservation Area, Nevada 159, Las Vegas, NV":
+      directionsDisplay3 = new google.maps.DirectionsRenderer(directionsDisplayOptions);
+      break;
+      case "Cherry Creek State Park, South Parker Road, Aurora, CO":
+      directionsDisplay4 = new google.maps.DirectionsRenderer(directionsDisplayOptions);
+      break;
+      case "Apache Cafe, 3rd Street Northwest, Atlanta, GA":
+      directionsDisplay5 = new google.maps.DirectionsRenderer(directionsDisplayOptions);
+      break;
+      case "4919 Cave Run Drive, Houston, TX":
+      directionsDisplay6 = new google.maps.DirectionsRenderer(directionsDisplayOptions);
+      break;
+        }
+
+        var waypts = [];
+        for (var i = 0; i < routes.length; i++) {
+			        waypts.push({
+			          location:routes[i],
+			          stopover:true});
+			        }
+
+			          var request = {
+			          origin: start,
+			          destination: end,
+			          waypoints: waypts,
+			          optimizeWaypoints: false,
+			          travelMode: google.maps.TravelMode.DRIVING
+			          };
+			          directionsService.route(request, function(response, status) {
+			        if (status == google.maps.DirectionsStatus.OK) {
+			        switch (start) {
+			        case "4919 Cave Run Drive, Houston, TX":
+			        directionsDisplay1.setDirections(response);
+			        break;
+			        case "The Queen Mary, Queens Highway, Long Beach, CA":
+			        directionsDisplay2.setDirections(response);
+			        break;
+			        case "Red Rock Canyon National Conservation Area, Nevada 159, Las Vegas, NV":
+			        directionsDisplay3.setDirections(response);
+			        break;
+			        case "Cherry Creek State Park, South Parker Road, Aurora, CO":
+			        directionsDisplay4.setDirections(response);
+			        break;
+			        case "Apache Cafe, 3rd Street Northwest, Atlanta, GA":
+			        directionsDisplay5.setDirections(response);
+			        break;
+			        case "4919 Cave Run Drive, Houston, TX":
+			        directionsDisplay6.setDirections(response);
+			        break;
+			          }
+			        }
+			          });
+			        }
+
+			        google.maps.event.addDomListener(window, 'load', initialize);
+
+              calcRoute("4919 Cave Run Drive, Houston, TX", "The Queen Mary, Queens Highway, Long Beach, CA", ["Pedernales Falls State Park, Park Road 6026, Johnson City, TX", "Big Bend National Park, TX", "N Dean St & E Texas St, Marfa, TX 79843", "Atalaya Mountain, Santa Fe, NM", "Walnut Canyon National Monument, Walnut Canyon Road, Flagstaff, AZ", "Grand Canyon National Park, AZ", "Coachella Valley Fringe-Toed Lizard Preserve, Thousand Palms, CA", "De las Flores, San Quintin, Mexico"]);
+
+              calcRoute("The Queen Mary, Queens Highway, Long Beach, CA", "Red Rock Canyon National Conservation Area, Nevada 159, Las Vegas, NV", ["Museum of Contemporary Art Santa Barbara, Santa Barbara, CA", "Big Sur, Monterey County, CA", "University of California, Santa Cruz, High Street, Santa Cruz, CA", "Golden Gate Park, San Francisco, CA", "Trancas Crossing Park, Trancas Street, Napa, CA", "Lake Tahoe State Park, Nevada 28, Incline Village, NV", "Yosemite National Park, CA", "Mount Whitney, Inyo County, CA"]);
+
+              calcRoute("Red Rock Canyon National Conservation Area, Nevada 159, Las Vegas, NV", "Cherry Creek State Park, South Parker Road, Aurora, CO", ["Zion National Park, Washington County, UT", "Powell Slough Waterfowl Management Area, Orem, UT", "Bonneville Salt Flats, Tooele County, UT", "Burnside Bridge, Portland, OR", "Beacon Hill Park, Victoria, BC, Canada", "Discovery Park, Discovery Park Boulevard, Seattle, WA", "Grand Teton National Park, Teton County, WY", "Boulder Mountain Park, Boulder, CO"]);
+
+              calcRoute("Cherry Creek State Park, South Parker Road, Aurora, CO", "Apache Cafe, 3rd Street Northwest, Atlanta, GA", ["Theodore Wirth Park, Theodore Wirth Parkway, Minneapolis, MN", "Lake Superior Brewing Co, West Superior Street, Duluth, MN", "Cherokee Marsh State Fishery Area, Madison, WI", "2131 West Cortez Street, Chicago, IL", "Millennium Park Path, Grand Rapids, MI", "10 Witherell Street, Detroit, MI", "Cherokee Park, Cochran Hill Road, Louisville, KY", "Cheatham Wildlife Management Area, Ashland City, TN"]);
+
+              calcRoute("Apache Cafe, 3rd Street Northwest, Atlanta, GA", "4919 Cave Run Drive, Houston, TX", ["Bonneau Ferry Wildlife Management Area, South Carolina 402, Cordesville, SC", "University of North Carolina at Chapel Hill, Chapel Hill, NC", "Monticello, Thomas Jefferson Parkway, Charlottesville, VA", "Oriole Park At Camden Yards, West Camden Street, Baltimore, MD", "Catskill Mountains, Shandaken, NY", "Red Rocks Park, Central Avenue, South Burlington, VT", "Congress Street, Portland, ME", "113 Mill Creek Road, South Chatham, MA"]);
+
+              calcRoute("4919 Cave Run Drive, Houston, TX", "4919 Cave Run Drive, Houston, TX", []);
+
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>

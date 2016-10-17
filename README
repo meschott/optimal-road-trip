@@ -1,0 +1,13 @@
+This is the order of commands:
+
+#only needs to be done for each set of waypoints
+python build_waypoints.py
+
+#the main work
+python Genetic_Algorithm.py
+
+#Produces the commands that must be pasted into the html
+python calc_route_maker.py
+
+#The first entry from each calcRoute must be entered into the two separate sets of case statements as well as the calcRoutes get pasted over 
+open scamp_trip.html
