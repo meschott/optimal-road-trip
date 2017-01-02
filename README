@@ -1,3 +1,4 @@
+This repository contains a slight modification from the project created by rhiever. They contain the ability to do a route that starts and ends at the same place. It's not necessarily an improvement on the original code just merely used it for my own needs which is why I didn't try and merge the fork. 
 This is the order of commands:
 
 #only needs to be done for each set of waypoints
